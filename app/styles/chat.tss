@@ -1,0 +1,106 @@
+"Tab": {
+  icon: "/images/tabIcon.png"
+}
+
+"Window": {
+  backgroundColor: "#4B4B4B"
+}
+
+"#container": {
+
+  // FIXME: Needed to not have list dissapear every now and then with dynamic sized items  
+  top: 0,
+  height: Ti.UI.FILL
+}
+
+"ListView": {
+  top: 0,
+  bottom: 50,
+
+  // FIXME: Needed to not have list dissapear every now and then with dynamic sized items
+  height: Ti.UI.FILL,
+
+  separatorStyle: Ti.UI.iPhone.ListViewSeparatorStyle.NONE,
+  backgroundColor: "white"
+}
+
+"ItemTemplate": {
+  canEdit: true,
+  height: Ti.UI.SIZE,
+  selectionStyle: Ti.UI.iPhone.ListViewCellSelectionStyle.NONE
+}
+
+".wrap": {
+  height: Ti.UI.SIZE,
+  layout: "vertical"
+}
+
+".myWrap": {
+  left: 50,
+  right: 10
+}
+
+".theirWrap": {
+  left: 10,
+  right: 50
+}
+
+".bubble": {
+  top: 5,
+  height: Ti.UI.SIZE,
+  borderRadius: 5
+}
+".myBubble": {
+  backgroundColor: Alloy.CFG.myColor
+}
+
+".theirBubble": {
+  backgroundColor: Alloy.CFG.theirColor
+}
+
+".message": {
+  top: 5,
+  right: 5,
+  bottom: 5,
+  left: 5,
+  height: Ti.UI.SIZE,
+
+  color: "white"
+}
+
+".meta": {
+  top: 0,
+  height: 15,
+  color: "#CCC",
+  font: {
+    fontSize: 10
+  }
+}
+
+".myMeta": {
+  right: 5
+}
+
+".theirMeta": {
+  left: 5
+}
+
+".textFieldWrap": {
+  height: 50,
+  bottom: 0
+}
+
+"TextField": {
+  top: 8,
+  right: 5,
+  bottom: 8,
+  left: 5,
+
+  hintText: "Reply",
+  paddingLeft: 5,
+  paddingRight: 5,
+  appearance: Ti.UI.KEYBOARD_APPEARANCE_ALERT,
+  returnKeyType: Ti.UI.RETURNKEY_SEND,
+  borderRadius: 5,
+  backgroundColor: "white"
+}

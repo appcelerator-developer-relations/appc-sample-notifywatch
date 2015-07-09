@@ -1,0 +1,4 @@
+"TabGroup": {
+	tabsBackgroundColor: "white",
+	tabsTintColor: Alloy.CFG.brandPrimary
+}

@@ -1,0 +1,51 @@
+<Alloy>
+	<Collection src="message" />
+
+	<Tab id="tab" title="Chat" onFocus="markAllRead">
+		<Window id="win" title="Chat">
+
+			<RightNavButton>
+				<Button onClick="markAllRead">Mark all Read</Button>
+			</RightNavButton>
+
+			<View id="container">
+
+				<ListView id="listView" onPostlayout="scrollDown" onItemclick="hideKeyboard" onDelete="deleteMessage">
+
+					<Templates>
+
+						<ItemTemplate name="mine">
+							<View class="wrap myWrap">
+								<View class="bubble myBubble">
+									<Label class="message" bindId="message" />
+								</View>
+								<Label class="meta myMeta" bindId="meta" />
+							</View>
+						</ItemTemplate>
+
+						<ItemTemplate name="theirs">
+							<View class="wrap theirWrap">
+								<View class="bubble theirBubble">
+									<Label class="message" bindId="message" />
+								</View>
+								<Label class="meta theirMeta" bindId="meta" />
+							</View>
+						</ItemTemplate>
+
+					</Templates>
+
+					<ListSection dataCollection="message" dataTransform="transformMessage">
+						<ListItem template="{template}" itemId="{alloy_id}" message:text="{message}" meta:text="{meta}" />
+					</ListSection>
+
+				</ListView>
+
+				<View class="textFieldWrap">
+					<TextField id="textField" onFocus="markAllRead" onReturn="sendMessage" />
+				</View>
+
+			</View>
+		</Window>
+	</Tab>
+
+</Alloy>

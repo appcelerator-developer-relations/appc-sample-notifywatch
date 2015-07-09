@@ -1,0 +1,12 @@
+"Tab": {
+	icon: "/images/tabIcon.png"
+}
+
+"TextArea": {
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL,
+	editable: false,
+	font: {
+		fontFamily: "Courier New"
+	}
+}

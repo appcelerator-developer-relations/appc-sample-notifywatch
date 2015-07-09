@@ -1,0 +1,29 @@
+{
+	"global": {
+		"brandPrimary": "#CD1625",
+		"myColor": "#5cb85c",
+		"theirColor": "#929292",
+		"delay": 4000,
+		"messages": [
+			"So, are you liking it?",
+			"Did you try locking the phone after texting me?",
+			"Did you try locking the phone with your Apple Watch on?",
+			"Feeling allright today?",
+			"Did you get that Apple Watch yet?",
+			"Wanna catch a movie tonight?",
+			"Do you still love me?",
+			"Am I human you think?",
+			"Are you human like me?",
+			"Does Jeff Haynie ring a bell with you?",
+			"Purchased a plan yet?"
+		]
+	},
+	"env:development": {},
+	"env:test": {},
+	"env:production": {},
+	"os:android": {},
+	"os:ios": {},
+	"os:mobileweb": {},
+	"os:windows": {},
+	"dependencies": {}
+}

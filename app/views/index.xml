@@ -1,0 +1,6 @@
+<Alloy>
+	<TabGroup>
+		<Require src="chat" />
+		<Require src="console" />
+	</TabGroup>
+</Alloy>

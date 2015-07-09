@@ -1,0 +1,13 @@
+<Alloy>
+	<Tab title="Console">
+		<Window title="Console">
+
+			<RightNavButtons>
+				<Button onClick="scheduleTest">Test</Button>
+			</RightNavButtons>
+
+			<TextArea id="log">Hello</TextArea>
+
+		</Window>
+	</Tab>
+</Alloy>
