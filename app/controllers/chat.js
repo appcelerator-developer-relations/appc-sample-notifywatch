@@ -55,11 +55,9 @@ function onMessage(e) {
 			read: Date.now()
 		});
 
-		switch (e.action) {
+		log('Chat: Marked message ' + e.id + ' as read.');
 
-			case 'READ':
-				log('Chat: Just marked message ' + e.id + ' as read.');
-				break;
+		switch (e.action) {
 
 			case 'OK':
 
@@ -69,6 +67,8 @@ function onMessage(e) {
 					mine: 1,
 					sent: Date.now()
 				});
+
+				scheduleFakeResponse();
 
 				log('Chat: Replied 👍 to message ' + e.id + '.');
 				break;
@@ -82,10 +82,12 @@ function onMessage(e) {
 					sent: Date.now()
 				});
 
+				scheduleFakeResponse();
+
 				log('Chat: Replied 👎 to message ' + e.id + '.');
 				break;
 
-			case 'REPLY':
+			default:
 
 				// Make tab active
 				$.tab.active = true;
