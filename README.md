@@ -1,3 +1,5 @@
+> **NOTE:** This sample app and README is under construction and **will** change.
+
 # Interactive Notifications for iOS and Apple Watch
 Supporting Apple Watch without the Kit.
 
