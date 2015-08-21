@@ -137,7 +137,7 @@ function registerForLocalNotifications(e) {
 		log('Ti.App.iOS:notification', e);
 
 		if (e.category === 'CHAT_CATEGORY') {
-			Alloy.Events.trigger('message', {
+			Alloy.Events.trigger('action', {
 				id: e.userInfo.id,
 				action: 'REPLY'
 			});
@@ -158,7 +158,7 @@ function registerForLocalNotifications(e) {
 		log('Received: Ti.App.iOS:localnotificationaction', e);
 
 		if (e.category === 'CHAT_CATEGORY') {
-			Alloy.Events.trigger('message', {
+			Alloy.Events.trigger('action', {
 				id: e.userInfo.id,
 				action: e.identifier
 			});
@@ -217,7 +217,7 @@ function registerForPushNotifications() {
 			log('Ti.App.iOS:remotenotificationaction', e);
 
 			if (e.category === 'CHAT_CATEGORY') {
-				Alloy.Events.trigger('message', {
+				Alloy.Events.trigger('action', {
 					id: e.data.id,
 					action: e.identifier
 				});

@@ -10,8 +10,8 @@ var moment = require('alloy/moment');
 	// Fetch existing messages from the SQLite store
 	Alloy.Collections.message.fetch();
 
-	// Fired by notifications.js when a sample notification
-	Alloy.Events.on('message', onMessage);
+	// Fired by notifications.js
+	Alloy.Events.on('action', onAction);
 
 	// Resize the container when the keyboards shows/hides
 	Ti.App.addEventListener('keyboardframechanged', onKeyboardframechanged);
@@ -40,7 +40,7 @@ function onChange(model) {
 	}
 }
 
-function onMessage(e) {
+function onAction(e) {
 	var model = Alloy.Collections.message.get(e.id);
 
 	if (e.action === 'DELETE') {
@@ -117,12 +117,6 @@ function onResume(e) {
 	}
 }
 
-function getUnread() {
-	return Alloy.Collections.message.where({
-		read: 0
-	});
-}
-
 function markAllRead() {
 
 	_.each(getUnread(), function (model) {
@@ -140,8 +134,13 @@ function markAllRead() {
 	updateBadges();
 }
 
+function getUnread() {
+	return Alloy.Collections.message.where({
+		read: 0
+	});
+}
+
 function hideKeyboard(e) {
-	console.log(e);
 
 	if (e.source.id !== 'textField') {
 		$.textField.blur();
@@ -192,7 +191,7 @@ function transformMessage(model) {
 
 function scheduleFakeResponse() {
 
-	// After 5 seconds
+	// After delay
 	setTimeout(function () {
 
 		// Create the response
