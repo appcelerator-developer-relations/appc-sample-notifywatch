@@ -13,7 +13,7 @@
 (function(global) {
 
   if (global.localeStrings) {
-    // alert('You should not run this app via LiveView.');
+    alert('You should not run this app via LiveView.');
   }
 
   Alloy.Globals.OS_VERSION = parseInt(Ti.Platform.version.split('.')[0], 10);
