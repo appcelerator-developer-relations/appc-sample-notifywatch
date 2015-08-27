@@ -6,7 +6,8 @@
 				<Button onClick="scheduleTest">Test</Button>
 			</RightNavButtons>
 
-			<TextArea id="log">Hello</TextArea>
+			<!-- Will be updated with the logs by controllers/console.js -->
+			<TextArea id="log" />
 
 		</Window>
 	</Tab>

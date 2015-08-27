@@ -1,19 +1,28 @@
 <Alloy>
+
+	<!-- Create a global instance of the message collection to bind the ListView to -->
 	<Collection src="message" />
 
+	<!-- onFocus: Mark all messages as read when the user swiches to this tab -->
 	<Tab id="tab" title="Chat" onFocus="markAllRead">
+
 		<Window id="win" title="Chat">
 
 			<RightNavButton>
 				<Button onClick="markAllRead">Mark all Read</Button>
 			</RightNavButton>
 
+			<!-- We will resize this view when the keyboard shows/hides via onKeyboardframechanged() -->
 			<View id="container">
 
+				<!-- onPostlayout: Scroll to the end of the ListView after it has been layed out -->
+				<!-- onItemclick: Hide the keyboard when an item is tapped on -->
+				<!-- onDelete: Delete the message by swiping the item to the left -->
 				<ListView id="listView" onPostlayout="scrollDown" onItemclick="hideKeyboard" onDelete="deleteMessage">
 
 					<Templates>
 
+						<!-- Template for messages sent -->
 						<ItemTemplate name="mine">
 							<View class="wrap myWrap">
 								<View class="bubble myBubble">
@@ -23,6 +32,7 @@
 							</View>
 						</ItemTemplate>
 
+						<!-- Template for messages received -->
 						<ItemTemplate name="theirs">
 							<View class="wrap theirWrap">
 								<View class="bubble theirBubble">
@@ -34,14 +44,20 @@
 
 					</Templates>
 
+					<!-- ListSection with data binding on the message collection -->
+					<!-- dataTransform: Method to call one each model before binding it -->
 					<ListSection dataCollection="message" dataTransform="transformMessage">
-						<ListItem template="{template}" itemId="{alloy_id}" message:text="{message}" meta:text="{meta}" />
+						<ListItem template="{template}" itemId="{id}" message:text="{message}" meta:text="{meta}" />
 					</ListSection>
 
 				</ListView>
 
 				<View class="textFieldWrap">
+
+					<!-- onFocus: Mark all messages read when you start a response -->
+					<!-- sendMessage: Send new message by tapping the keyboard return button -->
 					<TextField id="textField" onFocus="markAllRead" onReturn="sendMessage" />
+
 				</View>
 
 			</View>

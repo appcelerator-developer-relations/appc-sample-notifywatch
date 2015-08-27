@@ -11,10 +11,10 @@
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>true</analytics>
-    <guid>851ed217-0616-460d-bd66-fa0558dde145</guid>
+    <guid>11111111-1111-1111-1111-111111111111</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
 
-    <!-- To test interactive push notifications register with ArrowDB and set:
+    <!-- To test interactive push notifications create an Arrow Datasource and set:
     <property name="acs-api-key" type="string">YOUR API KEY HERE</property>
 	-->
 
@@ -45,25 +45,16 @@
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
     </android>
-    <mobileweb>
-        <precache>
-        </precache>
-        <splash>
-            <enabled>true</enabled>
-            <inline-css-images>true</inline-css-images>
-        </splash>
-        <theme>default</theme>
-    </mobileweb>
     <modules>
 
-        <!-- To test interactive push notifications register with ArrowDB and include:
+        <!-- To test interactive push notifications create an Arrow Datasource and include:
         <module platform="iphone">ti.cloud</module>
     	-->
 
     </modules>
     <deployment-targets>
         <target device="android">false</target>
-        <target device="ipad">true</target>
+        <target device="ipad">false</target>
         <target device="iphone">true</target>
         <target device="mobileweb">false</target>
         <target device="windows">false</target>

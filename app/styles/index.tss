@@ -1,4 +1,6 @@
 "TabGroup": {
 	tabsBackgroundColor: "white",
+
+	// Color of active tab icon/title
 	tabsTintColor: Alloy.CFG.brandPrimary
 }

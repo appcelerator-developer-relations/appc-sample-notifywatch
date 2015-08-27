@@ -15,10 +15,16 @@ overrode the settings with other TSS, XML, or JS settings:
 
 "Window": {
 	backgroundColor: "#fff",
+
+	// Color of the Navigation Bar background
 	barColor: Alloy.CFG.brandPrimary,
-	navTintColor: "#FFF",
 	translucent: false,
+
+	// Color of the Navigation Bar title
 	titleAttributes: {
 		color: "#FFF"
-	}
+	},
+
+	// Color of buttons in the Navigation Bar
+	navTintColor: "#FFF"
 }

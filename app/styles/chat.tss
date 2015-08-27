@@ -3,12 +3,17 @@
 }
 
 "Window": {
+
+  // We set the window to the backgroundColor we want for the wrapper of the TextField.
+  // This way it will also show this under that wrapper while the keyboard comes in and
+  // the container resizes to move the TextField up.
   backgroundColor: "#4B4B4B"
 }
 
 "#container": {
 
-  // FIXME: Needed to not have list dissapear every now and then with dynamic sized items  
+  // FIXME: https://jira.appcelerator.org/browse/TIMOB-19209
+  // This seems to make the issue with 4.1.0 happen less often
   top: 0,
   height: Ti.UI.FILL
 }
@@ -17,18 +22,25 @@
   top: 0,
   bottom: 50,
 
-  // FIXME: Needed to not have list dissapear every now and then with dynamic sized items
-  height: Ti.UI.FILL,
-
   separatorStyle: Ti.UI.iPhone.ListViewSeparatorStyle.NONE,
-  backgroundColor: "white"
+  backgroundColor: "white",
+
+  // FIXME: https://jira.appcelerator.org/browse/TIMOB-19209
+  // This seems to make the issue with 4.1.0 happen less often
+  height: Ti.UI.FILL
 }
 
 "ItemTemplate": {
-  canEdit: true,
   height: Ti.UI.SIZE,
+
+  // Will enable swipe-to-the-left-to-delete
+  canEdit: true,
+
+  // We don't want tapping on the item to change its backgroundColor
   selectionStyle: Ti.UI.iPhone.ListViewCellSelectionStyle.NONE
 }
+
+// Styles for the bubbles
 
 ".wrap": {
   height: Ti.UI.SIZE,
@@ -85,6 +97,8 @@
   left: 5
 }
 
+// Styles for the TextField and its wrapper
+
 ".textFieldWrap": {
   height: 50,
   bottom: 0
@@ -99,8 +113,12 @@
   hintText: "Reply",
   paddingLeft: 5,
   paddingRight: 5,
-  appearance: Ti.UI.KEYBOARD_APPEARANCE_ALERT,
-  returnKeyType: Ti.UI.RETURNKEY_SEND,
   borderRadius: 5,
-  backgroundColor: "white"
+  backgroundColor: "white",
+
+  // The alert-style keyboards looks nice with our wrapper
+  appearance: Ti.UI.KEYBOARD_APPEARANCE_ALERT,
+
+  // Change the name of the return key on the keyboard
+  returnKeyType: Ti.UI.RETURNKEY_SEND
 }

@@ -27,6 +27,8 @@ I tried to keep the app as simple as possible.
 * The tab controlled by [app/controllers/console.js](https://github.com/appcelerator-developer-relations/appc-sample-notifywatch/blob/master/app/controllers/console.js) displays log messages so you can read back what happened on the non-UI side of things.
 * The actual chat is controlled by [app/controllers/chat.js](https://github.com/appcelerator-developer-relations/appc-sample-notifywatch/blob/master/app/controllers/chat.js).
 
+> **NOTE:** There is a [known issue](https://jira.appcelerator.org/browse/TIMOB-19209) that the ListView sometimes will not render. Simply restart the app when it does. The issue is fixed for the next minor SDK release.
+
 ## Setting up interactive notifications
 
 Interactive notifications can be scheduled locally by the app itself or pushed.
