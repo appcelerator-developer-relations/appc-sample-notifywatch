@@ -2,21 +2,21 @@
 **Or...** Supporting Apple Watch without the Kit/OS2.
 
 ## Titanium & Apple Watch
-Titanium 4.1 already supports linking a WatchKit Extension built in Xcode and our September 2015 release adds support for linking and communicating with Watch OS 2 apps built using Swift. Of course we are also working on solutions to build an actual Watch OS 2 app in JavaScript using Titanium. But today I will show how you can support the Apple Watch without any of that using Titanium 3.4.0 or later.
+Titanium 4.1 already supports linking a WatchKit Extension built in Xcode, and our upcoming September 2015 release adds support for linking and communicating with Watch OS 2 apps built using Swift. Of course we are also working on the ability to build an actual Watch OS 2 app in JavaScript using Titanium. But today I will show how you can support the Apple Watch without any of that using Titanium 3.4.0 or later.
 
 ## Interactive Notifications
-What I personally use most of the Apple Watch are interactive notifications. Third party apps often are painfully slow, although I assume that will improve when they will run on the watch with Watch OS 2.
+What I personally use most on the Apple Watch are interactive notifications. Third party apps often are painfully slow, although I assume that will improve once they are able to run on the watch with Watch OS 2.
 
-Interactive notifications were already [available](http://docs.appcelerator.com/platform/latest/#!/guide/iOS_Interactive_Notifications) for phone and tablet since iOS 8 and Titanium 3.4.0, but proved to be even more useful on the watch. Getting a notification about an incoming message is fine, but if I don't have to grab my phone to reply we are really talking — literally! I rather still use my phone instead of having to type or dictate on my watch, but interactive notifications are great for selecting a quick reply or actions like *Mark as Read*.
+Interactive notifications have been [available](http://docs.appcelerator.com/platform/latest/#!/guide/iOS_Interactive_Notifications) for phone and tablet since iOS 8 and Titanium 3.4.0, but proved to be even more useful on the Watch. Getting a notification about an incoming message is fine, but if I don't have to grab my phone to reply we are really talking — literally! I'd still rather use my phone instead of having to type or dictate on my watch, but interactive notifications are great for selecting a quick reply or actions like *Mark as Read*.
 
 ## Sample App
-I've build a [sample messenger app](https://github.com/appcelerator-developer-relations/appc-sample-notifywatch) to show you how it works. It's a simple WhatsApp-like messaging app. Every time you send a message, a pretty dumb bot will reply with a random answer after 4 seconds. This allows you to move the app to the background or lock your phone to see what happens in different scenarios.
+I've built a [sample messenger app](https://github.com/appcelerator-developer-relations/appc-sample-notifywatch) to show you how it works. It's a simple WhatsApp-like messaging app. Every time you send a message, a pretty dumb bot will reply with a random answer after 4 seconds. This allows you to move the app to the background or lock your phone to see what happens in different scenarios.
 
 The repository includes [screenshots of different types of interactive notifications](https://github.com/appcelerator-developer-relations/appc-sample-notifywatch/tree/master/screenshots).
 
 ![screenshots](screenshots/screenshots.png)
 
-> **NOTE:** As you can see, actions [titles](http://docs.appcelerator.com/platform/latest/#!/api/Titanium.App.iOS.UserNotificationAction-property-title) can contain emojis — yeah!
+> **NOTE:** As you can see, action [titles](http://docs.appcelerator.com/platform/latest/#!/api/Titanium.App.iOS.UserNotificationAction-property-title) can contain emojis — yeah!
 
 ## Architecture
 I tried to keep the app as simple as possible.
@@ -27,7 +27,7 @@ I tried to keep the app as simple as possible.
 * The tab controlled by [app/controllers/console.js](https://github.com/appcelerator-developer-relations/appc-sample-notifywatch/blob/master/app/controllers/console.js) displays log messages so you can read back what happened on the non-UI side of things.
 * The actual chat is controlled by [app/controllers/chat.js](https://github.com/appcelerator-developer-relations/appc-sample-notifywatch/blob/master/app/controllers/chat.js).
 
-> **NOTE:** There is a [known issue](https://jira.appcelerator.org/browse/TIMOB-19209) that the ListView sometimes will not render. Simply restart the app when it does. The issue is fixed for the next minor SDK release.
+> **NOTE:** There is a [known issue](https://jira.appcelerator.org/browse/TIMOB-19209) that the ListView sometimes will not render. Simply restart the app when this occurs. The issue is fixed for the next minor SDK release.
 
 ## Setting up interactive notifications
 
@@ -77,7 +77,7 @@ The chat uses local notifications and the console tab has a button to send one a
 * [userInfo](http://docs.appcelerator.com/platform/latest/#!/api/NotificationParams-property-userInfo): Can be any object. Our sample uses it to pass the ID of the message which we need to handle the action.
 
 ### Push notifications
-To send an interactive push notification, use the [Dashboard](http://docs.appcelerator.com/platform/latest/#!/guide/Sending_and_Scheduling_Push_Notifications-section-43298780_SendingandSchedulingPushNotifications-InteractiveNotifications(iOS8andlater)) or [API](http://docs.appcelerator.com/platform/latest/#!/guide/iOS_Interactive_Notifications-section-40930452_iOSInteractiveNotifications-SendanInteractivePushNotification) and including a valid `category` value and optional payload.
+To send an interactive push notification, use the [Dashboard](http://docs.appcelerator.com/platform/latest/#!/guide/Sending_and_Scheduling_Push_Notifications-section-43298780_SendingandSchedulingPushNotifications-InteractiveNotifications(iOS8andlater) or [API](http://docs.appcelerator.com/platform/latest/#!/guide/iOS_Interactive_Notifications-section-40930452_iOSInteractiveNotifications-SendanInteractivePushNotification) and including a valid `category` value and optional payload.
 
 ![screenshot](http://docs.appcelerator.com/platform/latest/images/download/attachments/43298780/push_notification.png)
 
@@ -92,7 +92,7 @@ I won't go into too much detail on how the chat works, but here's what [app/cont
 See the comments throughout the code for more details.
 
 ## Bonus: Handoff
-As a bonus, viewing a notification on your watch automatically triggers handoff for the Titanium app. Your app icon will show in the bottom left of the lock screen and swiping up will open the app. However, consequent tests using the sample didn't always get the same results for me and only in Titanium 5.0 and later will you be able to listen to the [handoff](https://appcelerator.github.io/appc-docs/latest/#!/api/Titanium.App.iOS-event-handoff) event in your app.
+As a bonus, viewing a notification on your Watch automatically triggers handoff for the Titanium app. Your app icon will show in the bottom left of the lock screen and swiping up will open the app. However, consecutive tests using the sample didn't always get the same results for me and only in Titanium 5.0 and later will you be able to listen to the [handoff](https://appcelerator.github.io/appc-docs/latest/#!/api/Titanium.App.iOS-event-handoff) event in your app.
 
 ![screenshot](screenshots/screenshot_handoff_slice.png)
 
