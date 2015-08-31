@@ -76,6 +76,9 @@ function onAction(e) {
 			read: Date.now()
 		});
 
+		// Update badges
+		updateBadges();
+
 		log('Chat: Marked message ' + e.id + ' as read.');
 
 		switch (e.action) {
@@ -162,19 +165,22 @@ function onResume(e) {
 	// If the current tab is active
 	if ($.tab.active) {
 
-		// Mark all messages as read
-		markAllRead();
+		// Mark all other messages as read
+		markAllRead(false);
 	}
 }
 
 
 /**
- * Called by onResume() and set as event listener in the view to mark all messages as read.
+ * Called by onResume() and set as event listener in the view to mark all
+ * messages of us or (true) the other (false) as read.
  */
-function markAllRead() {
+function markAllRead(mine) {
+
+	var mine = _.isObject(mine) ? false : mine;
 
 	// Get all unread messages
-	_.each(getUnread(), function (model) {
+	_.each(getUnread(mine), function (model) {
 
 		// Set as read without triggering the data-binding for each
 		model.save({
@@ -192,13 +198,15 @@ function markAllRead() {
 }
 
 /**
- * Called by markAllRead() and updateBadges() to get all unread messages.
+ * Called by markAllRead() and updateBadges() to get all unread messages
+ * of either me (true) or the other (false).
  *
  * @return     {Array}  Array of message models
  */
-function getUnread() {
+function getUnread(mine) {
 	return Alloy.Collections.message.where({
-		read: 0
+		read: 0,
+		mine: mine ? 1 : 0
 	});
 }
 
@@ -243,10 +251,7 @@ function sendMessage(e) {
 		id: Ti.Platform.createUUID(),
 		message: e.value,
 		mine: 1,
-		sent: Date.now(),
-
-		// Simulate that it would normally get a ping from the other user when they have read it
-		read: Date.now() + 1000
+		sent: Date.now()
 	});
 
 	// Schedule a fake response from out bot
@@ -303,7 +308,8 @@ function scheduleFakeResponse() {
 			sent: Date.now()
 		});
 
-		updateBadges();
+		// Mark all messages that are mine as read (by the other)
+		markAllRead(true);
 
 		// Notifiy the user right away (no date)
 		Ti.App.iOS.scheduleLocalNotification({
@@ -322,12 +328,13 @@ function scheduleFakeResponse() {
 }
 
 /**
- * Function called in different places in this controller to update the app and tab badge.
+ * Function called in different places in this controller to update the app
+ * and tab badge with te number of badges we haven't read.
  */
 function updateBadges() {
 
 	// Get the number of unread messages
-	var unreads = getUnread().length;
+	var unreads = getUnread(false).length;
 
 	// Set the tab and app badge
 	$.tab.badge = unreads || null;
