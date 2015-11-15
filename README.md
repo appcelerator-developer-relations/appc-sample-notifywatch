@@ -77,7 +77,7 @@ The chat uses local notifications and the console tab has a button to send one a
 * [userInfo](http://docs.appcelerator.com/platform/latest/#!/api/NotificationParams-property-userInfo): Can be any object. Our sample uses it to pass the ID of the message which we need to handle the action.
 
 ### Push notifications
-To send an interactive push notification, use the [Dashboard](http://docs.appcelerator.com/platform/latest/#!/guide/Sending_and_Scheduling_Push_Notifications-section-43298780_SendingandSchedulingPushNotifications-InteractiveNotifications(iOS8andlater) or [API](http://docs.appcelerator.com/platform/latest/#!/guide/iOS_Interactive_Notifications-section-40930452_iOSInteractiveNotifications-SendanInteractivePushNotification) and including a valid `category` value and optional payload.
+To send an interactive push notification, use the [Dashboard](http://docs.appcelerator.com/platform/latest/#!/guide/Sending_and_Scheduling_Push_Notifications-section-43298780_SendingandSchedulingPushNotifications-InteractiveNotifications(iOS8andlater)) or [API](http://docs.appcelerator.com/platform/latest/#!/guide/iOS_Interactive_Notifications-section-40930452_iOSInteractiveNotifications-SendanInteractivePushNotification) and including a valid `category` value and optional payload.
 
 ![screenshot](http://docs.appcelerator.com/platform/latest/images/download/attachments/43298780/push_notification.png)
 
@@ -90,6 +90,11 @@ I won't go into too much detail on how the chat works, but here's what [app/cont
 * Then finally there's some logic to update the app and tab badges and mark messages as read when you see or reply to them.
 
 See the comments throughout the code for more details.
+
+## Update: Text Input
+With Titanium 5.1 we've introduced the [behavior](http://docs.appcelerator.com/platform/latest/#!/api/Titanium.App.iOS.UserNotificationAction-property-behavior) property for actions. With just a few modifications in [lib/notifications.js](app/lib/notifications.js) en the [chat controller](app/controllers/chat.js) you can now reply with a custom message directly from the notification banner or by dictating it to your Apple Watch:
+
+![choice](screenshots/behavior_textinput.png)
 
 ## Bonus: Handoff
 As a bonus, viewing a notification on your Watch automatically triggers handoff for the Titanium app. Your app icon will show in the bottom left of the lock screen and swiping up will open the app. However, consecutive tests using the sample didn't always get the same results for me and only in Titanium 5.0 and later will you be able to listen to the [handoff](https://appcelerator.github.io/appc-docs/latest/#!/api/Titanium.App.iOS-event-handoff) event in your app.

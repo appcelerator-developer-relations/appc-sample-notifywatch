@@ -20,7 +20,7 @@ var PUSH_ENABLED = !!Ti.App.Properties.getString('acs-api-key');
 	registerUserNotificationSettings();
 
 	registerForLocalNotifications();
-	
+
 
 })();
 
@@ -100,14 +100,6 @@ function registerUserNotificationSettings() {
 	 * Actions for the CHAT_CATEGORY
 	 */
 
-	var markAsRead = Ti.App.iOS.createUserNotificationAction({
-		identifier: 'READ',
-		title: 'Mark as Read',
-		activationMode: Ti.App.iOS.USER_NOTIFICATION_ACTIVATION_MODE_BACKGROUND,
-		destructive: false,
-		authenticationRequired: false
-	});
-
 	var replyOK = Ti.App.iOS.createUserNotificationAction({
 		identifier: 'OK',
 
@@ -119,9 +111,34 @@ function registerUserNotificationSettings() {
 		authenticationRequired: false
 	});
 
-	var replyNOK = Ti.App.iOS.createUserNotificationAction({
-		identifier: 'NOK',
-		title: '👎',
+	var reply;
+
+	if (Ti.App.iOS.USER_NOTIFICATION_BEHAVIOR_TEXTINPUT) {
+		reply = Ti.App.iOS.createUserNotificationAction({
+			identifier: 'REPLY',
+			title: 'Reply',
+			activationMode: Ti.App.iOS.USER_NOTIFICATION_ACTIVATION_MODE_BACKGROUND,
+
+			// New in Titanium 5.1 is the option to ask the user for input
+			behavior: Ti.App.iOS.USER_NOTIFICATION_BEHAVIOR_TEXTINPUT,
+
+			destructive: false,
+			authenticationRequired: false
+		});
+
+	} else {
+		reply = Ti.App.iOS.createUserNotificationAction({
+			identifier: 'REPLY',
+			title: 'Reply',
+			activationMode: Ti.App.iOS.USER_NOTIFICATION_ACTIVATION_MODE_FOREGROUND,
+			destructive: false,
+			authenticationRequired: false
+		});
+	}
+
+	var markAsRead = Ti.App.iOS.createUserNotificationAction({
+		identifier: 'READ',
+		title: 'Mark as Read',
 		activationMode: Ti.App.iOS.USER_NOTIFICATION_ACTIVATION_MODE_BACKGROUND,
 		destructive: false,
 		authenticationRequired: false
@@ -137,10 +154,10 @@ function registerUserNotificationSettings() {
 
 	var chatCategory = Ti.App.iOS.createUserNotificationCategory({
 		identifier: 'CHAT_CATEGORY',
-		actionsForDefaultContext: [replyOK, replyNOK, markAsRead, deleteMessage],
+		actionsForDefaultContext: [replyOK, reply, markAsRead, deleteMessage],
 
-		// We could have left this one undefined as it will default to the first 2 of the aboveco
-		actionsForMinimalContext: [replyOK, replyNOK]
+		// We could have left this one undefined as it will default to the first 2 of the above
+		actionsForMinimalContext: [replyOK, reply]
 	});
 
 	/// Register the notification types and categories
@@ -193,7 +210,10 @@ function registerForLocalNotifications() {
 		if (e.category === 'CHAT_CATEGORY') {
 			Alloy.Events.trigger('action', {
 				id: e.userInfo.id,
-				action: e.identifier
+				action: e.identifier,
+
+				// New in Ti 5.1 when the action's behavior is Ti.App.iOS.USER_NOTIFICATION_BEHAVIOR_TEXTINPUT
+				typedText: e.typedText
 			});
 		}
 	});
@@ -225,7 +245,7 @@ function registerForPushNotifications() {
 			device_token: e.deviceToken,
 			channel: 'main',
 			type: 'ios'
-		}, function (e) {
+		}, function(e) {
 			log('Finished: Cloud.PushNotifications.subscribeToken', e);
 		});
 	}

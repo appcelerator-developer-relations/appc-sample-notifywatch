@@ -83,25 +83,7 @@ function onAction(e) {
 
 		switch (e.action) {
 
-			// OK (thumbs up) action
-			case 'OK':
-
-				// Create OK message
-				Alloy.Collections.message.create({
-					id: Ti.Platform.createUUID(),
-					message: '👍',
-					mine: 1,
-					sent: Date.now()
-				});
-
-				log('Chat: Replied 👍 to message ' + e.id + '.');
-
-				// Schedule fake response
-				scheduleFakeResponse();
-
-				break;
-
-				// Not OK (thumbs down) action
+			// Not OK (thumbs down) action
 			case 'NOK':
 
 				// Create Not OK message
@@ -119,7 +101,28 @@ function onAction(e) {
 
 				break;
 
-				// No action was selected
+				// REPLY action
+			case 'REPLY':
+
+				// Only in Titanium 5.1 or later and when the user typed something do we have input
+				if (Ti.App.iOS.USER_NOTIFICATION_BEHAVIOR_TEXTINPUT && e.typedText) {
+
+					Alloy.Collections.message.create({
+						id: Ti.Platform.createUUID(),
+						message: e.typedText,
+						mine: 1,
+						sent: Date.now()
+					});
+
+					log('Chat: Replied \'' + e.typedText + '\' to message ' + e.id + '.');
+
+					// Schedule fake response
+					scheduleFakeResponse();
+
+					break;
+				}
+
+				// No action was selected or REPLY was empty
 			default:
 
 				// Make this tab active if it's not already so user can handle it
@@ -180,7 +183,7 @@ function markAllRead(mine) {
 	var mine = _.isObject(mine) ? false : mine;
 
 	// Get all unread messages
-	_.each(getUnread(mine), function (model) {
+	_.each(getUnread(mine), function(model) {
 
 		// Set as read without triggering the data-binding for each
 		model.save({
@@ -295,7 +298,7 @@ function transformMessage(model) {
 function scheduleFakeResponse() {
 
 	// After delay set in config.json
-	setTimeout(function () {
+	setTimeout(function() {
 
 		// Create the response
 		var response = Alloy.Collections.message.create({
